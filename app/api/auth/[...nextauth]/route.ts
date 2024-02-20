@@ -2,8 +2,7 @@ import NextAuth from 'next-auth'
 import CredentialsProvider from "next-auth/providers/credentials"
 import clientPromise from '@/lib/mongodb';
 
-export default NextAuth({
-  providers: [
+const handler = NextAuth({  providers: [
     CredentialsProvider({
       // The name to display on the sign-in form (e.g. 'Sign in with...')
       name: 'Credentials',
@@ -33,3 +32,4 @@ export default NextAuth({
   ],
   // ...rest of the NextAuth configuration
 });
+export { handler as GET, handler as POST }
