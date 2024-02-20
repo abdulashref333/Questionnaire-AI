@@ -1,9 +1,6 @@
 import NextAuth from 'next-auth'
 import CredentialsProvider from "next-auth/providers/credentials"
-import { MongoClient } from 'mongodb'
-
-const clientPromise = new MongoClient(process.env.MONGODB_URI || "", {
-}).connect()
+import clientPromise from '@/lib/mongodb';
 
 export default NextAuth({
   providers: [
