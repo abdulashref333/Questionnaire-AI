@@ -1,6 +1,6 @@
 import NextAuth, { RequestInternal, User } from 'next-auth'
 import CredentialsProvider from "next-auth/providers/credentials"
-import clientPromise from '@/lib/mongodb';
+import { findOne } from '@/lib/services/user.service';
 
 export const authOptions = {
   providers: [
@@ -16,10 +16,9 @@ export const authOptions = {
         req: Pick<RequestInternal, "body" | "query" | "headers" | "method">
       ): Promise<User | null> => {
         // Add logic here to look up the user from the credentials supplied
-        const client = await clientPromise
-        const usersCollection = client.db().collection('users')
-        const user = await usersCollection.findOne({ email: credentials?.email })
+        if(!credentials?.email) return Promise.resolve(null);
 
+        const user = await findOne(credentials.email)
         if (user) {
           // Any object returned will be saved in `user` property of the JWT
           return Promise.resolve({id: user.id, ...user})
