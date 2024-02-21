@@ -1,7 +1,6 @@
 import NextAuth from 'next-auth'
 import CredentialsProvider from "next-auth/providers/credentials"
-import clientPromise from '@/lib/mongodb';
-
+import { findOne } from '@/lib/services/user.service';
 const handler = NextAuth({  providers: [
     CredentialsProvider({
       // The name to display on the sign-in form (e.g. 'Sign in with...')
@@ -12,10 +11,8 @@ const handler = NextAuth({  providers: [
       },
       async authorize(credentials){
         // Add logic here to look up the user from the credentials supplied
-        const client = await clientPromise
-        const usersCollection = client.db().collection('users')
-        const user = await usersCollection.findOne({ email: credentials?.email })
-
+        if(!credentials?.email) return false
+        const user = await findOne(credentials.email)
         if (user) {
           // Any object returned will be saved in `user` property of the JWT
           return Promise.resolve(user)
