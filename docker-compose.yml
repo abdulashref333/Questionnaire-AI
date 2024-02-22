@@ -3,10 +3,14 @@ version: '3.8'
 services:
   app:
     build: .
+    command: [ "npm", "run", "dev" ]
+    container_name: my-nextjs-app
     ports:
       - '3000:3000'
     networks:
       - app-network
+    volumes:
+      - .:/app
     depends_on:
       - db
     env_file:
@@ -20,6 +24,9 @@ services:
 
   db:
     image: mongo:latest
+    container_name: my-mongodb
+    env_file:
+      - .env
     volumes:
       - mongodb-data:/data/db
     networks:
