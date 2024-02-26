@@ -1,34 +1,48 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Questionnair-Ai
+
+This is a Next.js Application that aims to make your words better, by helping you write good English sentences. Just write your sentence in English and our backend API will do its best to correct and enhance your sentence. The backend is powered by OpenAi GPT-Model.
 
 ## Getting Started
 
-First, run the development server:
+First, run the environment using docker-compose:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+docker compose up --build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Second, seed the user data so that, you can use the application.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+docker exec -it my-nextjs-app bash # to run a bash terminal.
+node seeder/user.seeder.ts # to seed the user db.
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+To run the project without Docker
 
-## Learn More
+```bash
+npm install && npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+## API Endpoints
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Method | Endpoint                  | Description             |
+|--------|---------------------------|-------------------------|
+| GET    | /api/auth/signin          | Get the signin form     |
+| POST   | /api/sentence-improvement | Enhance the user text   |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Specs
 
-## Deploy on Vercel
+Here is a list of almost everything I have done in the project:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Sign in page.
+- Chat page.
+- Users can insert text that is in wrong grammar and bad words, and the app responds with good sentences.
+- Endpoint to handle the user authentication.
+- Endpoint to get the user a better sentence of the inserted text.
+- Dockerize the application so that it can be easy for further development.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Notes
+
+- The project is simple, and I know it has to many things to improve.
+- To shut down the application you should run  `docker compose down`
+- You may need to Install Docker and docker-compose to run the project.
