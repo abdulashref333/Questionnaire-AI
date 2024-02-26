@@ -3,14 +3,30 @@
 This is a Next.js Application that aims to make your words better, by helping you write good English sentences. Just write your sentence in English and our backend API will do its best to correct and enhance your sentence. The backend is powered by OpenAi GPT-Model.
 
 ## Getting Started
+First, You need to add the `.env` file:
 
-First, run the environment using docker-compose:
+```bash
+cp .env.example .env # this will create a new file .env
+
+#here is an example of the file
+NEXTAUTH_SECRET=NEXTAUTH_SECRET=d7NRHOet5hz7vy2By2I1RWcVKTepEDWuDJXDpbQp3VY=
+MONGODB_URI=mongodb://my-mongodb:27017
+MONGODB_DB_NAME=questionnair-ai
+NODE_ENV=development
+
+
+# YOUR OPEN_AI API KEY
+OPENAI_API_KEY=
+
+```
+
+Second, run the environment using docker-compose:
 
 ```bash
 docker compose up --build
 ```
 
-Second, seed the user data so that, you can use the application.
+Third, seed the user data so that, you can use the application.
 
 ```bash
 docker exec -it my-nextjs-app bash # to run a bash terminal.
@@ -21,6 +37,13 @@ To run the project without Docker
 
 ```bash
 npm install && npm run dev
+```
+
+```bash
+To see the website just open:  http://loacalhost:300/
+Default user to loging with:
+Email: admin@example.com
+Pass: admin123
 ```
 
 ## API Endpoints
